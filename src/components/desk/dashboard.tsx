@@ -145,7 +145,7 @@ export function PositionsList({ book, quotes, lastMarks, onPick, emptyHint }) {
                   : null,
             m = p?.includes("stop");
           return (
-            <button
+            <button key={e.symbol}
               type="button"
               onClick={() => onPick(e.symbol)}
               className="flex items-center gap-3 rounded-md px-1 py-3 text-left transition-colors duration-150 hover:bg-surface-2"
@@ -200,7 +200,7 @@ export function PositionsList({ book, quotes, lastMarks, onPick, emptyHint }) {
   );
 }
 export function Sparkline({ values, className, tone = "muted" }) {
-  if (values.length < 2) return null;
+  if (!values || values.length < 2) return null;
   let r = Math.min(...values),
     i = Math.max(...values) - r || 1,
     a = values
@@ -234,7 +234,7 @@ export function Tape({ quotes, lastMarks, onPick, onAdd }) {
           i = r && r > 0 ? ((e.price - r) / r) * 100 : null,
           a = isBigMove(e.changePct) || (i !== null && isBigMove(i));
         return (
-          <button
+          <button key={e.symbol}
             type="button"
             onClick={() => onPick(e.symbol)}
             className={cn(
@@ -332,7 +332,7 @@ export function BriefingCard({ briefing, onStay, onRun, grokReady }) {
           {briefing.topMoves.map((e) => {
             let t = e.sincePct ?? e.changePct;
             return (
-              <li className="inline-flex h-9 items-center gap-2 rounded-full bg-surface-2 px-3 text-xs tabular-nums">
+              <li key={e.symbol} className="inline-flex h-9 items-center gap-2 rounded-full bg-surface-2 px-3 text-xs tabular-nums">
                 <span className="font-medium tracking-wide">{e.symbol}</span>
                 <span className={toneClass(t)}>{formatPct(t)}</span>
               </li>

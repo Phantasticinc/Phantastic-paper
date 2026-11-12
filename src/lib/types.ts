@@ -13,6 +13,8 @@ export interface Quote {
   changePct: number;
   high?: number;
   low?: number;
+  /** Recent price path for the tape sparkline (oldest → newest). */
+  spark?: number[];
 }
 
 export interface Position {

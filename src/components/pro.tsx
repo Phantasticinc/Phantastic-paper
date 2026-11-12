@@ -117,7 +117,7 @@ export function PlansDialog({
             </p>
             <ul className="mt-3 flex flex-col gap-2 text-sm text-muted">
               {FREE_FEATURES.map((e) => (
-                <li className="flex gap-2">
+                <li key={e} className="flex gap-2">
                   <Check className="mt-0.5 size-4 shrink-0 text-subtle" />
                   {e}
                 </li>
@@ -133,7 +133,7 @@ export function PlansDialog({
             </p>
             <ul className="mt-3 flex flex-col gap-2 text-sm opacity-80">
               {PRO_FEATURES.map((e) => (
-                <li className="flex gap-2">
+                <li key={e} className="flex gap-2">
                   <Check className="mt-0.5 size-4 shrink-0" />
                   {e}
                 </li>

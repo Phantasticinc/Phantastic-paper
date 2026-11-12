@@ -24,7 +24,7 @@ export function TradeList({ trades, emptyHint }) {
       ) : (
         <ol className="flex flex-col gap-3">
           {trades.slice(0, 24).map((e) => (
-            <li className="border-b border-border pb-3 last:border-0 last:pb-0">
+            <li key={e.id} className="border-b border-border pb-3 last:border-0 last:pb-0">
               <div className="flex items-baseline justify-between gap-3">
                 <p className="text-sm">
                   <span
@@ -127,7 +127,7 @@ export function CycleCard({
           {l ? (
             <ul className="mt-3 flex flex-col gap-2">
               {c.map((e, t) => (
-                <li className="flex items-center justify-between gap-3 rounded-lg bg-surface-2 px-3 py-2">
+                <li key={`${e.symbol}-${e.side}-${t}`} className="flex items-center justify-between gap-3 rounded-lg bg-surface-2 px-3 py-2">
                   <div className="min-w-0">
                     <p className="text-sm">
                       <span
@@ -165,7 +165,7 @@ export function CycleCard({
           ) : (
             <ul className="mt-3 flex flex-col gap-1.5">
               {cycle.fills.map((e) => (
-                <li className="flex justify-between gap-3 text-sm">
+                <li key={e.id} className="flex justify-between gap-3 text-sm">
                   <span>
                     <span
                       className={cn(

@@ -143,7 +143,7 @@ export function AddTickerForm({ existing, onAdd, autoFocus = false }) {
           {s.map((t) => {
             let n = existing.includes(t.symbol);
             return (
-              <li>
+              <li key={t.symbol}>
                 <button
                   type="button"
                   disabled={n || d === t.symbol}

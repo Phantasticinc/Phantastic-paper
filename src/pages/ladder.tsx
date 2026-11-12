@@ -281,7 +281,7 @@ export function LadderPage() {
               {w.map((e, t) => {
                 let n = e.closed >= 3;
                 return (
-                  <li
+                  <li key={`${e.handle}-${t}`}
                     className={cn(
                       "flex items-center gap-3 rounded-xl px-3 py-3 sm:px-4",
                       e.isMe

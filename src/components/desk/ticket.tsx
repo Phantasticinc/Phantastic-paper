@@ -161,7 +161,7 @@ export function ResearchPanel({ quote, active }) {
       ) : (
         <ul className="flex flex-col gap-3">
           {i.map((e) => (
-            <li className="min-w-0">
+            <li key={e.url} className="min-w-0">
               <a
                 href={e.url}
                 target="_blank"

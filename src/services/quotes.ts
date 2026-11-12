@@ -74,7 +74,11 @@ function referenceFor(symbol: string): number {
 }
 
 /** Price as a smooth deterministic function of (symbol, time): daily drift + two slow waves. */
-export function simulatedQuote(symbol: string, now = Date.now()): Quote {
+export function simulatedQuote(
+  symbol: string,
+  now = Date.now(),
+  withSpark = true,
+): Quote {
   const ref = referenceFor(symbol);
   const day = Math.floor(now / 86_400_000);
   const phase = hash(`phase:${symbol}`) * Math.PI * 2;
@@ -94,9 +98,16 @@ export function simulatedQuote(symbol: string, now = Date.now()): Quote {
     low = Math.min(low, p);
   }
   const round = (n: number) => Math.round(n * 100) / 100;
+  const spark: number[] = [];
+  if (withSpark) {
+    for (let i = 23; i >= 0; i--) {
+      spark.push(simulatedQuote(symbol, now - i * 1_800_000, false).price);
+    }
+  }
   return {
     symbol,
     name: NAME_BY_SYMBOL[symbol] ?? symbol,
+    spark: withSpark ? spark : undefined,
     price: round(price),
     changePct: ((price - open) / open) * 100,
     high: round(high),

@@ -192,7 +192,7 @@ export function ShareLadderDialog({ open, onOpenChange, stats }) {
                 onClick: () => _(l.telegram),
               },
             ].map((e) => (
-              <Button variant="secondary" onClick={e.onClick}>
+              <Button key={e.id} variant="secondary" onClick={e.onClick}>
                 {e.label}
               </Button>
             ))}
@@ -413,7 +413,7 @@ export function LaunchShareDialog({ open, onOpenChange }) {
                 onClick: () => openLink(links.hn),
               },
             ].map((e) => (
-              <Button
+              <Button key={e.id}
                 variant="secondary"
                 className="min-h-11"
                 onClick={e.onClick}

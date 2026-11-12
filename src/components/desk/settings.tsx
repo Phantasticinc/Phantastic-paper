@@ -127,7 +127,7 @@ export function SettingsSheet({
                 {trophies.map((e) => {
                   let t = TROPHIES[e];
                   return t ? (
-                    <li className="rounded-lg bg-surface-2 px-3 py-2">
+                    <li key={e} className="rounded-lg bg-surface-2 px-3 py-2">
                       <p className="text-sm text-fg">{t.title}</p>
                       <p className="mt-0.5 text-xs text-muted">{t.line}</p>
                     </li>
@@ -219,7 +219,7 @@ export function SettingsSheet({
                 {CAPITAL_PRESETS.map((e) => {
                   let t = !isPro && e > 1e5;
                   return (
-                    <button
+                    <button key={e}
                       type="button"
                       onClick={() => {
                         if (t) {
@@ -267,7 +267,7 @@ export function SettingsSheet({
             <Label>Risk mandate</Label>
             <div className="mt-3 grid gap-2">
               {D.map(([e, t]) => (
-                <button
+                <button key={e}
                   type="button"
                   onClick={() => onRisk(e)}
                   className={cn(
@@ -309,7 +309,7 @@ export function SettingsSheet({
               {UNIVERSE.map((e) => {
                 let t = universe.includes(e.symbol);
                 return (
-                  <button
+                  <button key={e.symbol}
                     type="button"
                     onClick={() => onToggle(e.symbol)}
                     className={cn(
@@ -327,7 +327,7 @@ export function SettingsSheet({
                 {A.map((e) => {
                   let t = universe.includes(e);
                   return (
-                    <span
+                    <span key={e}
                       className={cn(
                         "inline-flex h-11 items-center rounded-full pl-3 text-sm",
                         t ? "bg-fg text-accent-fg" : "bg-surface-2 text-muted",

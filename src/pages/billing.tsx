@@ -251,7 +251,7 @@ export function BillingPage() {
               "Paper capital up to $10M",
               "Auto on the Run Grok control",
             ].map((e) => (
-              <li className="flex gap-2">
+              <li key={e} className="flex gap-2">
                 <Check className="mt-0.5 size-4 shrink-0 text-fg" />
                 {e}
               </li>

@@ -10,7 +10,7 @@ import {
   localAuth,
   signInWithProvider,
 } from "@/services/auth";
-import { Link, getRouteApi } from "@tanstack/react-router";
+import { Link, getRouteApi, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 export function toLoginEmail(e) {
@@ -20,6 +20,7 @@ export function toLoginEmail(e) {
   return n ? `${n}@phantastic.paper` : "";
 }
 export function LoginPage() {
+  const navigate = useNavigate();
   let { next: e } = getRouteApi("/login").useSearch(),
     [t, n] = useState("in"),
     [r, i] = useState(""),
@@ -84,7 +85,7 @@ export function LoginPage() {
       </p>
       <div className="mt-8 flex flex-col gap-3">
         {SIGN_IN_PROVIDERS.map((e) => (
-          <Button
+          <Button key={e.providerId}
             type="button"
             variant="secondary"
             className="min-h-12 w-full"

@@ -67,7 +67,7 @@ export function Welcome({
           {CAPITAL_PRESETS.map((e) => {
             let t = !isPro && e > 1e5;
             return (
-              <button
+              <button key={e}
                 type="button"
                 onClick={() => f(e)}
                 className={cn(
