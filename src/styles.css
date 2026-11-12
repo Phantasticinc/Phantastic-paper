@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * Design tokens recovered from the live site's compiled Tailwind v4 theme.
+ * Dark is the default; `html.light` overrides the colour tokens below.
+ */
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  --color-bg: #0b0c0e;
+  --color-surface: #14161a;
+  --color-surface-2: #1c1f24;
+  --color-fg: #ecece8;
+  --color-muted: #8a8d85;
+  --color-subtle: #5c5f59;
+  --color-border: #ecece81a;
+  --color-accent: #ecece8;
+  --color-accent-fg: #0b0c0e;
+  --color-gain: #3d8a5c;
+  --color-gain-fg: #f6f4ee;
+  --color-loss: #c45c52;
+  --color-loss-fg: #f6f4ee;
+  --color-ring: #ecece8;
+
+  --shadow-border: 0 0 0 1px #ecece814;
+  --shadow-border-hover: 0 0 0 1px #ecece824;
+
+  /* The original theme redefines the radius scale (sm .5rem … xl 1.5rem). */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.75rem;
+
+  --tracking-widest: 0.1em;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color-scheme: dark;
+  }
+  html.light {
+    color-scheme: light;
+  }
+  html,
+  body,
+  #app {
+    background: var(--color-bg);
+    max-width: 100%;
+    min-height: 100%;
+    color: var(--color-fg);
+    overflow-x: hidden;
+  }
+  body {
+    font-family: var(--font-sans);
+  }
+  html.dark body {
+    background-image: linear-gradient(180deg, #101214 0%, var(--color-bg) 28%);
+  }
+  html.light body {
+    background-image: linear-gradient(180deg, #faf6ee 0%, var(--color-bg) 32%);
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  html.dark * {
+    scrollbar-width: thin;
+    scrollbar-color: #ecece829 transparent;
+  }
+  html.light * {
+    scrollbar-width: thin;
+    scrollbar-color: #1c1a162e transparent;
+  }
+}
+
+html.light {
+  --color-bg: #f3efe6;
+  --color-surface: #fffdf8;
+  --color-surface-2: #ebe6da;
+  --color-fg: #1c1a16;
+  --color-muted: #6b675c;
+  --color-subtle: #8f8a7d;
+  --color-border: #1c1a161a;
+  --color-border-strong: #1c1a162e;
+  --color-accent: #1c1a16;
+  --color-accent-fg: #f3efe6;
+  --color-gain: #2f7a4a;
+  --color-gain-fg: #f6f4ee;
+  --color-loss: #b44a42;
+  --color-loss-fg: #f6f4ee;
+  --color-ring: #1c1a16;
+  --shadow-border: 0 0 0 1px #1c1a160f, 0 1px 2px -1px #1c1a160f, 0 2px 4px 0 #1c1a160a;
+  --shadow-border-hover: 0 0 0 1px #1c1a161a, 0 1px 2px -1px #1c1a1614, 0 2px 6px 0 #1c1a160f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  :before,
+  :after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
