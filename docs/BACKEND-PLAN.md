@@ -93,5 +93,5 @@ Everything stays free through step 2, apart from the possible data-display licen
 - No secret in the repo or the bundle. Secrets live only in the function platform's secret store.
 - Restrict CORS on every function to `https://phantastic.net` and `https://phantasticinc.github.io`.
 - Row-level security on every table, tested with a second user.
-- A privacy page update once emails, handles or progress are stored server-side (the live `/privacy` currently describes browser-only storage).
+- A privacy page update once emails, handles or progress are stored server-side (review `/privacy` against what is then stored server-side).
 - Keep `/risk` and the "paper only" notices exactly as they are.
