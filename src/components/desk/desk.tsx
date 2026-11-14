@@ -594,7 +594,11 @@ export function Desk() {
       <Link
         to="/login"
         search={{
-          next: "/",
+          next: deepLink.practice
+            ? `/?${new URLSearchParams(
+                Object.entries(deepLink).map(([k, v]) => [k, String(v)]),
+              )}`
+            : "/",
         }}
         className="text-sm text-muted hover:text-fg"
       >
