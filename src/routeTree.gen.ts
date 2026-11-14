@@ -19,7 +19,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RiskRouteImport } from './routes/risk'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
-import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
+import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
+import { Route as LearnCourseSlugRouteImport } from './routes/learn.$course.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -71,9 +72,14 @@ const LearnIndexRoute = LearnIndexRouteImport.update({
   path: '/learn/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearnSlugRoute = LearnSlugRouteImport.update({
-  id: '/learn/$slug',
-  path: '/learn/$slug',
+const LearnCourseIndexRoute = LearnCourseIndexRouteImport.update({
+  id: '/learn/$course/',
+  path: '/learn/$course/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnCourseSlugRoute = LearnCourseSlugRouteImport.update({
+  id: '/learn/$course/$slug',
+  path: '/learn/$course/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -87,8 +93,9 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/risk': typeof RiskRoute
-  '/learn/$slug': typeof LearnSlugRoute
   '/learn/': typeof LearnIndexRoute
+  '/learn/$course/$slug': typeof LearnCourseSlugRoute
+  '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -100,8 +107,9 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/risk': typeof RiskRoute
-  '/learn/$slug': typeof LearnSlugRoute
   '/learn': typeof LearnIndexRoute
+  '/learn/$course/$slug': typeof LearnCourseSlugRoute
+  '/learn/$course': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -114,8 +122,9 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/risk': typeof RiskRoute
-  '/learn/$slug': typeof LearnSlugRoute
   '/learn/': typeof LearnIndexRoute
+  '/learn/$course/$slug': typeof LearnCourseSlugRoute
+  '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,8 +138,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/risk'
-    | '/learn/$slug'
     | '/learn/'
+    | '/learn/$course/$slug'
+    | '/learn/$course/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -142,8 +152,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/risk'
-    | '/learn/$slug'
     | '/learn'
+    | '/learn/$course/$slug'
+    | '/learn/$course'
   id:
     | '__root__'
     | '/'
@@ -155,8 +166,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/risk'
-    | '/learn/$slug'
     | '/learn/'
+    | '/learn/$course/$slug'
+    | '/learn/$course/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -169,8 +181,9 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   RiskRoute: typeof RiskRoute
-  LearnSlugRoute: typeof LearnSlugRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  LearnCourseSlugRoute: typeof LearnCourseSlugRoute
+  LearnCourseIndexRoute: typeof LearnCourseIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -245,11 +258,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/learn/$slug': {
-      id: '/learn/$slug'
-      path: '/learn/$slug'
-      fullPath: '/learn/$slug'
-      preLoaderRoute: typeof LearnSlugRouteImport
+    '/learn/$course/': {
+      id: '/learn/$course/'
+      path: '/learn/$course'
+      fullPath: '/learn/$course/'
+      preLoaderRoute: typeof LearnCourseIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/$course/$slug': {
+      id: '/learn/$course/$slug'
+      path: '/learn/$course/$slug'
+      fullPath: '/learn/$course/$slug'
+      preLoaderRoute: typeof LearnCourseSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -265,8 +285,9 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   RiskRoute: RiskRoute,
-  LearnSlugRoute: LearnSlugRoute,
   LearnIndexRoute: LearnIndexRoute,
+  LearnCourseSlugRoute: LearnCourseSlugRoute,
+  LearnCourseIndexRoute: LearnCourseIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

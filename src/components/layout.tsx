@@ -36,7 +36,12 @@ export function PageShell({
             {eyebrow}
           </span>
         </Link>
-        <ThemeToggle />
+        <div className="flex shrink-0 items-center gap-1">
+          <Link to="/learn" className="mr-2 text-sm text-muted hover:text-fg">
+            Learn
+          </Link>
+          <ThemeToggle />
+        </div>
       </div>
       {title && (
         <h1 className="font-display text-4xl font-medium tracking-tight sm:text-5xl">

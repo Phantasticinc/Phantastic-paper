@@ -36,6 +36,9 @@ export function Welcome({
           </span>
         </div>
         <div className="flex shrink-0 items-center gap-1">
+          <Link to="/learn" className="mr-2 text-sm text-muted hover:text-fg">
+            Learn
+          </Link>
           {accountSlot}
           <ThemeToggle />
         </div>

@@ -37,8 +37,11 @@ import { fetchQuotes } from "@/services/quotes";
 import { selectCyclesLeft, useBillingStore } from "@/store/billing";
 import { useDeskStore } from "@/store/desk";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { Link, getRouteApi, useNavigate } from "@tanstack/react-router";
+import { ContinueCard } from "@/components/learn/ContinueCard";
+import { PracticeBanner } from "@/components/learn/PracticeBanner";
 import {
+  BookOpen,
   Flame,
   ListOrdered,
   LoaderCircle,
@@ -60,6 +63,9 @@ export function Desk() {
     [briefingOpen, setBriefingOpen] = useState(false),
     [shareOpen, setShareOpen] = useState(false),
     [launchShareOpen, setLaunchShareOpen] = useState(false),
+    [ticketPrefill, setTicketPrefill] = useState(null),
+    deepLink = getRouteApi("/").useSearch(),
+    navigate = useNavigate(),
     { theme, setTheme } = useTheme(),
     { user, isPending: authPending } = useAuth(),
     signedIn = !!user,
@@ -129,8 +135,14 @@ export function Desk() {
     }, []));
   let symbols = useMemo(() => {
       let e = positions.map((e) => e.symbol);
-      return [...new Set([...universe, ...e])];
-    }, [universe, positions]),
+      return [
+        ...new Set([
+          ...universe,
+          ...e,
+          ...(deepLink.ticket ? [deepLink.ticket] : []),
+        ]),
+      ];
+    }, [universe, positions, deepLink.ticket]),
     quotesQuery = useQuery({
       queryKey: ["quotes", symbols],
       queryFn: () =>
@@ -168,6 +180,19 @@ export function Desk() {
       );
     useDeskStore.getState().snapshot(quotes);
   }, [quotes, paperMode]);
+  // Lesson deep link: open a pre-filled ticket once the book is funded and the tape is loaded,
+  // then drop ticket/shares from the URL so closing the dialog doesn't reopen it.
+  useEffect(() => {
+    if (!deepLink.ticket || !hydrated || !funded || !paperMode) return;
+    if (!quoteMap.has(deepLink.ticket)) return;
+    setTicketPrefill({ symbol: deepLink.ticket, shares: deepLink.shares ?? null });
+    setTicketSymbol(deepLink.ticket);
+    navigate({
+      to: "/",
+      search: deepLink.practice ? { practice: deepLink.practice } : {},
+      replace: true,
+    });
+  }, [deepLink.ticket, deepLink.shares, deepLink.practice, hydrated, funded, paperMode, quoteMap]);
   let book = {
       cash,
       initialCash,
@@ -416,7 +441,7 @@ export function Desk() {
       toast.error("Could not fill that ticket.");
       return;
     }
-    (announceFill(n), setTicketSymbol(null));
+    (announceFill(n), setTicketSymbol(null), setTicketPrefill(null));
   }
   function openPlans(e, t = null) {
     (setPendingUnlock(t), setPlansReason(e), setPlansOpen(true));
@@ -626,6 +651,14 @@ export function Desk() {
     );
   return !activeMode || !funded ? (
     <Fragment>
+      {deepLink.practice && (
+        <div className="mx-auto max-w-3xl px-5 pt-6 sm:px-6">
+          <PracticeBanner
+            lessonId={deepLink.practice}
+            state={signedIn ? "fund" : "signin"}
+          />
+        </div>
+      )}
       {welcome}
       {plansDialog}
       <LaunchShareDialog
@@ -667,6 +700,17 @@ export function Desk() {
               Pro
             </Button>
           )}
+          <Button
+            asChild={true}
+            variant="ghost"
+            className="shrink-0 px-3 max-sm:size-11 max-sm:px-0"
+            aria-label="Learn"
+          >
+            <Link to="/learn">
+              <BookOpen className="size-5 sm:hidden" />
+              <span className="hidden sm:inline">Learn</span>
+            </Link>
+          </Button>
           <Button
             asChild={true}
             variant="ghost"
@@ -743,6 +787,14 @@ export function Desk() {
           </Button>
         </div>
         {!isPro && !proSales && <ProBanner variant="banner" className="mt-4" />}
+        {deepLink.practice && (
+          <PracticeBanner
+            lessonId={deepLink.practice}
+            state="ready"
+            className="mt-4"
+          />
+        )}
+        <ContinueCard className="mt-4" />
         {briefingOpen && briefing && (
           <div className="mt-4">
             <BriefingCard
@@ -831,7 +883,15 @@ export function Desk() {
         quote={ticketQuote}
         heldShares={ticketHeld}
         cash={cash}
-        onClose={() => setTicketSymbol(null)}
+        initialShares={
+          ticketPrefill && ticketPrefill.symbol === ticketSymbol
+            ? ticketPrefill.shares
+            : null
+        }
+        onClose={() => {
+          setTicketSymbol(null);
+          setTicketPrefill(null);
+        }}
         onSubmit={submitTicket}
       />
       {shareOpen && (

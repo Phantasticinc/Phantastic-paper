@@ -30,6 +30,12 @@ export function LegalLinks({ className }: { className?: string }) {
       >
         Ladder
       </Link>
+      <Link
+        to="/learn"
+        className="underline-offset-4 hover:text-fg hover:underline"
+      >
+        Learn
+      </Link>
     </span>
   );
 }

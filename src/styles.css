@@ -116,3 +116,69 @@ html.light {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Lesson / course Markdown (src/content/courses). Keeps long-form text in the site's voice. */
+.lesson-prose > * + * {
+  margin-top: 1rem;
+}
+.lesson-prose h2 {
+  margin-top: 2rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+}
+.lesson-prose h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--color-fg);
+}
+.lesson-prose strong {
+  color: var(--color-fg);
+  font-weight: 600;
+}
+.lesson-prose ul,
+.lesson-prose ol {
+  padding-left: 1.25rem;
+}
+.lesson-prose ul {
+  list-style: disc;
+}
+.lesson-prose ol {
+  list-style: decimal;
+}
+.lesson-prose li + li {
+  margin-top: 0.4rem;
+}
+.lesson-prose a {
+  color: var(--color-fg);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.lesson-prose a:hover {
+  opacity: 0.8;
+}
+.lesson-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.lesson-prose th,
+.lesson-prose td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+.lesson-prose th {
+  color: var(--color-fg);
+  font-weight: 500;
+}
+.lesson-prose blockquote {
+  border-left: 2px solid var(--color-border);
+  padding-left: 1rem;
+}

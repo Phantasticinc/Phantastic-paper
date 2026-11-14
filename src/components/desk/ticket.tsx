@@ -23,7 +23,14 @@ import { useQuery } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 
-export function TicketDialog({ quote, heldShares, cash, onClose, onSubmit }) {
+export function TicketDialog({
+  quote,
+  heldShares,
+  cash,
+  onClose,
+  onSubmit,
+  initialShares = null,
+}) {
   let [shares, setShares] = useState("10"),
     [tab, setTab] = useState("ticket"),
     qty = Math.max(0, Math.floor(Number(shares) || 0)),
@@ -40,7 +47,13 @@ export function TicketDialog({ quote, heldShares, cash, onClose, onSubmit }) {
         <DialogContent
           className="max-w-lg max-h-[min(88dvh,42rem)] overflow-y-auto"
           onOpenAutoFocus={() =>
-            setShares(heldShares > 0 ? String(Math.min(heldShares, 10)) : "10")
+            setShares(
+              initialShares
+                ? String(initialShares)
+                : heldShares > 0
+                  ? String(Math.min(heldShares, 10))
+                  : "10",
+            )
           }
         >
           {quote && (
