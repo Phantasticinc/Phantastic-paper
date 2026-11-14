@@ -1,4 +1,5 @@
 // @ts-nocheck — recovered from the compiled bundle; tighten types incrementally (see README).
+import { SimulatedNotice } from "@/components/policy/SimulatedNotice";
 import { Button } from "@/components/ui/button";
 import { Card, CardLabel } from "@/components/ui/card";
 import { computeNav, positionPnl, positionWeightPct } from "@/lib/book";
@@ -340,7 +341,8 @@ export function BriefingCard({ briefing, onStay, onRun, grokReady }) {
           })}
         </ul>
       )}
-      <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+      <SimulatedNotice className="mt-4" />
+      <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
         {grokReady && !briefing.cycledToday && (
           <Button className="min-h-11" onClick={onRun}>
             Run the open

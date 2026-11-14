@@ -18,6 +18,7 @@ import { Route as LadderRouteImport } from './routes/ladder'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RiskRouteImport } from './routes/risk'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
 import { Route as LearnCourseSlugRouteImport } from './routes/learn.$course.$slug'
@@ -67,6 +68,11 @@ const RiskRoute = RiskRouteImport.update({
   path: '/risk',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
   id: '/learn/',
   path: '/learn/',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/risk': typeof RiskRoute
+  '/terms': typeof TermsRoute
   '/learn/': typeof LearnIndexRoute
   '/learn/$course/$slug': typeof LearnCourseSlugRoute
   '/learn/$course/': typeof LearnCourseIndexRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/risk': typeof RiskRoute
+  '/terms': typeof TermsRoute
   '/learn': typeof LearnIndexRoute
   '/learn/$course/$slug': typeof LearnCourseSlugRoute
   '/learn/$course': typeof LearnCourseIndexRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/risk': typeof RiskRoute
+  '/terms': typeof TermsRoute
   '/learn/': typeof LearnIndexRoute
   '/learn/$course/$slug': typeof LearnCourseSlugRoute
   '/learn/$course/': typeof LearnCourseIndexRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/risk'
+    | '/terms'
     | '/learn/'
     | '/learn/$course/$slug'
     | '/learn/$course/'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/risk'
+    | '/terms'
     | '/learn'
     | '/learn/$course/$slug'
     | '/learn/$course'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/privacy'
     | '/risk'
+    | '/terms'
     | '/learn/'
     | '/learn/$course/$slug'
     | '/learn/$course/'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   RiskRoute: typeof RiskRoute
+  TermsRoute: typeof TermsRoute
   LearnIndexRoute: typeof LearnIndexRoute
   LearnCourseSlugRoute: typeof LearnCourseSlugRoute
   LearnCourseIndexRoute: typeof LearnCourseIndexRoute
@@ -251,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RiskRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/': {
       id: '/learn/'
       path: '/learn'
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   RiskRoute: RiskRoute,
+  TermsRoute: TermsRoute,
   LearnIndexRoute: LearnIndexRoute,
   LearnCourseSlugRoute: LearnCourseSlugRoute,
   LearnCourseIndexRoute: LearnCourseIndexRoute,

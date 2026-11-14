@@ -170,7 +170,7 @@ export async function drawLadderCard(
   ctx.fillStyle = C.muted;
   ctx.font = `400 22px ${SANS}`;
   ctx.fillText(
-    "Paper desk  ·  fills at last quote  ·  not a live book",
+    "Simulated results  ·  paper desk  ·  not a live book",
     96,
     860,
   );

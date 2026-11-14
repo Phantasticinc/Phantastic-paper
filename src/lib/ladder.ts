@@ -138,7 +138,7 @@ export function shareCaption(r: LadderRow): string {
   const day = r.streak > 0 ? ` Day ${r.streak}.` : "";
   return r.closed
     ? `${r.handle} is ${rate} on the Phantastic Paper ladder (${r.wins}/${r.closed} closed, ${ret} paper).${day} Fake P&L, real feelings. ${url}`
-    : `${r.handle} is ${ret} on the Phantastic Paper desk.${day} Paper fills, fake P&L, real feelings. ${url}`;
+    : `${r.handle} is ${ret} on the Phantastic Paper desk.${day} Paper fills, fake P&L, real feelings. Simulated results, not advice. ${url}`;
 }
 
 export function shareLinks(r: LadderRow) {

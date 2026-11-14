@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { AppUser } from "@/lib/types";
+import { LEGAL } from "@/lib/legal-config";
 
 /**
  * AUTH — LOCAL PROFILE ONLY.
@@ -21,6 +22,9 @@ interface Account {
   email: string;
   salt: string;
   hash: string;
+  /** Sign-up acknowledgment: 18+ and Terms/Privacy accepted. Stored with the profile. */
+  ageConfirmedAt?: number;
+  termsVersion?: string;
 }
 interface AuthState {
   accounts: Record<string, Account>;
@@ -48,7 +52,15 @@ export const localAuth = {
     email: string;
     password: string;
     name?: string;
+    /** Must be true: the sign-up form's "I am 18 or older and accept the Terms" checkbox. */
+    acknowledged: boolean;
   }): Promise<{ error: { message: string } | null }> {
+    if (!args.acknowledged)
+      return {
+        error: {
+          message: `Confirm that you are ${LEGAL.minAge} or older and accept the Terms to create an account.`,
+        },
+      };
     const email = args.email.trim().toLowerCase();
     if (useAuthStore.getState().accounts[email])
       return {
@@ -64,6 +76,8 @@ export const localAuth = {
       email,
       salt,
       hash: await sha256(`${salt}:${args.password}`),
+      ageConfirmedAt: Date.now(),
+      termsVersion: LEGAL.termsVersion,
     };
     useAuthStore.setState((s) => ({
       accounts: { ...s.accounts, [email]: account },

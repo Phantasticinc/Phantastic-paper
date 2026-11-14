@@ -1,4 +1,5 @@
 // @ts-nocheck — recovered from the compiled bundle; tighten types incrementally (see README).
+import { SimulatedNotice } from "@/components/policy/SimulatedNotice";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -152,6 +153,7 @@ export function ShareLadderDialog({ open, onOpenChange, stats }) {
             </div>
           )}
           <p className="text-xs leading-relaxed text-muted">{c}</p>
+          <SimulatedNotice />
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
             {[
               {

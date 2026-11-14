@@ -14,6 +14,7 @@ import { AddTickerDialog } from "@/components/desk/ticker";
 import { TicketDialog } from "@/components/desk/ticket";
 import { Welcome } from "@/components/desk/welcome";
 import { Disclaimer } from "@/components/legal";
+import { SimulatedNotice } from "@/components/policy/SimulatedNotice";
 import { PlansDialog, ProBanner } from "@/components/pro";
 import { TipJar } from "@/components/tip";
 import { Badge } from "@/components/ui/badge";
@@ -777,6 +778,7 @@ export function Desk() {
             }
           />
         </section>
+        <SimulatedNotice className="mt-3" tape={tapeSource !== "live"} />
         <div className="mt-3 flex gap-2">
           <Button asChild={true} variant="secondary" className="min-w-0 flex-1">
             <Link to="/ladder">Ladder</Link>

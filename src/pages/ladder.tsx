@@ -1,4 +1,5 @@
 // @ts-nocheck — recovered from the compiled bundle; tighten types incrementally (see README).
+import { SimulatedNotice } from "@/components/policy/SimulatedNotice";
 import { Logo, ThemeToggle } from "@/components/brand";
 import { ShareLadderDialog } from "@/components/desk/share";
 import { LegalLinks } from "@/components/legal";
@@ -180,6 +181,11 @@ export function LadderPage() {
           "Opt in and post a handle, win rate, paper return, and streak. Not the book, not an email. Win-rate rank needs at least "
         }
         {3} closes so a single lucky print doesn’t own the board.
+      </p>
+      <SimulatedNotice boxed={true} className="mt-4 max-w-md" />
+      <p className="mt-3 max-w-md text-xs leading-relaxed text-subtle">
+        The board shows handles only. You can hide yourself any time with “Pull
+        my name off the board”.
       </p>
       {t ? (
         <p className="mt-10 flex items-center gap-2 text-sm text-muted">

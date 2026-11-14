@@ -24,6 +24,9 @@ export function LegalLinks({ className }: { className?: string }) {
       <Link to="/privacy" className={footerLinkClass}>
         Privacy
       </Link>
+      <Link to="/terms" className={footerLinkClass}>
+        Terms
+      </Link>
       <Link
         to="/ladder"
         className="underline-offset-4 hover:text-fg hover:underline"

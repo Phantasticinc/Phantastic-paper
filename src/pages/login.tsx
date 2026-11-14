@@ -1,6 +1,7 @@
 // @ts-nocheck — recovered from the compiled bundle; tighten types incrementally (see README).
 import { Logo, ThemeToggle } from "@/components/brand";
-import { Disclaimer } from "@/components/legal";
+import { Disclaimer, footerLinkClass } from "@/components/legal";
+import { LEGAL } from "@/lib/legal-config";
 import { TipJarCompact } from "@/components/tip";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,7 +27,8 @@ export function LoginPage() {
     [r, i] = useState(""),
     [a, o] = useState(""),
     [s, c] = useState(false),
-    [l, u] = useState(null);
+    [l, u] = useState(null),
+    [ack, setAck] = useState(false);
   async function d(t) {
     u(null);
     try {
@@ -45,6 +47,12 @@ export function LoginPage() {
       u("Use a username or email, and a password of at least 8 characters.");
       return;
     }
+    if (t === "up" && !ack) {
+      u(
+        `Confirm that you are ${LEGAL.minAge} or older and accept the Terms to create an account.`,
+      );
+      return;
+    }
     (c(true), u(null));
     try {
       if (t === "up") {
@@ -52,6 +60,7 @@ export function LoginPage() {
           email: i,
           password: a,
           name: r.trim() || i.split("@")[0],
+          acknowledged: ack,
         });
         if (e) throw Error(e.message ?? "Could not create that account.");
       } else {
@@ -125,6 +134,28 @@ export function LoginPage() {
             placeholder="At least 8 characters"
           />
         </div>
+        {t === "up" && (
+          <label className="flex items-start gap-3 text-sm leading-relaxed text-muted">
+            <input
+              type="checkbox"
+              checked={ack}
+              onChange={(e) => setAck(e.target.checked)}
+              className="mt-0.5 size-5 shrink-0 accent-[var(--color-accent)]"
+              data-testid="age-ack"
+            />
+            <span>
+              {`I am ${LEGAL.minAge} or older. I have read and accept the `}
+              <Link to="/terms" className={footerLinkClass}>
+                Terms of Use
+              </Link>
+              {" and "}
+              <Link to="/privacy" className={footerLinkClass}>
+                Privacy
+              </Link>
+              .
+            </span>
+          </label>
+        )}
         {l && <p className="text-sm text-loss">{l}</p>}
         <Button type="submit" className="min-h-12" disabled={s || false}>
           {s ? "Working…" : t === "up" ? "Create account" : "Sign in"}
